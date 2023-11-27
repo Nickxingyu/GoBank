@@ -10,7 +10,7 @@ type AccountRouter struct {
 	*gin.Engine
 }
 
-func (r AccountRouter) Load() {
+func (r AccountRouter) load() {
 	rg := r.Group("/account")
 
 	rg.GET("/:id", getAccountById)
@@ -21,24 +21,24 @@ func (r AccountRouter) Load() {
 
 func getAccountById(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Get Account By Id",
+		"message": "Get An Account By Id",
 	})
 }
 
 func createAccount(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Create Account",
+		"message": "Create An Account",
 	})
 }
 
 func updateAccount(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Update Account",
+		"message": "Update An Account",
 	})
 }
 
 func deleteAccountById(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Delete Account By Id",
+		"message": "Delete An Account By Id",
 	})
 }
