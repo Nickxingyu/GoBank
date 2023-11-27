@@ -6,6 +6,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type AccountRouter struct {
+	*gin.Engine
+}
+
+func (r AccountRouter) Load() {
+	rg := r.Group("/account")
+
+	rg.GET("/:id", getAccountById)
+	rg.POST("/", createAccount)
+	rg.PUT("/", updateAccount)
+	rg.DELETE("/:id", deleteAccountById)
+}
+
 func getAccountById(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "Get Account By Id",

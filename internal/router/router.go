@@ -8,14 +8,7 @@ import (
 
 func Load(engine *gin.Engine) {
 	engine.GET("/", greet)
-
-	accountRouters := engine.Group("/account")
-	{
-		accountRouters.GET("/:id", getAccountById)
-		accountRouters.POST("/", createAccount)
-		accountRouters.PUT("/", updateAccount)
-		accountRouters.DELETE("/:id", deleteAccountById)
-	}
+	AccountRouter{engine}.Load()
 }
 
 func greet(ctx *gin.Context) {
