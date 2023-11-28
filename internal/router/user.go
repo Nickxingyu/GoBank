@@ -20,8 +20,9 @@ func (r UserRouter) load() {
 }
 
 func getUserById(ctx *gin.Context) {
+	id := ctx.Param("id")
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Get A User By Id",
+		"message": "Get A User By ID : " + id,
 	})
 }
 
@@ -38,7 +39,8 @@ func updateUser(ctx *gin.Context) {
 }
 
 func deleteUserById(ctx *gin.Context) {
+	id := ctx.Param("id")
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Delete A User By Id",
+		"message": "Delete A User By ID : " + id,
 	})
 }

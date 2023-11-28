@@ -20,8 +20,9 @@ func (r AccountRouter) load() {
 }
 
 func getAccountById(ctx *gin.Context) {
+	id := ctx.Param("id")
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Get An Account By Id",
+		"message": "Get An Account By ID : " + id,
 	})
 }
 
@@ -38,7 +39,8 @@ func updateAccount(ctx *gin.Context) {
 }
 
 func deleteAccountById(ctx *gin.Context) {
+	id := ctx.Param("id")
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Delete An Account By Id",
+		"message": "Delete An Account By ID : " + id,
 	})
 }
