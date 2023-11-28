@@ -2,20 +2,11 @@ package main
 
 import (
 	"github.com/Nickxingyu/GoBank/internal/app"
-	"github.com/Nickxingyu/GoBank/internal/database"
+	"github.com/Nickxingyu/GoBank/internal/model"
 )
 
 func main() {
-	db := database.Postgres{
-		Host:     "localhost",
-		User:     "postgres",
-		Password: "admin",
-		DBname:   "GoBank",
-		Port:     "8080",
-		SSLmode:  "disable",
-	}
-	db.Conn()
-
+	model.ConnectDatabase()
 	server := app.NewApiServer(":3000")
 	server.Run()
 }
