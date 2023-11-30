@@ -24,5 +24,5 @@ func (p Postgres) Connect() {
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
-	DB = db
+	DB = &DB_Type{db}
 }
