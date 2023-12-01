@@ -8,13 +8,27 @@ import (
 )
 
 type ConfigType struct {
-	Env       string `mapstructure:"Go.Bank.env"`
-	Server    `mapstructure:"server"`
+	Env       string
 	BcryptKey string `mapstructure:"bcrypt_key"`
+	Server
+	Database
 }
 
 type Server struct {
 	Port int
+}
+
+type Database struct {
+	Postgres
+}
+
+type Postgres struct {
+	Host     string
+	User     string
+	Password string
+	DBname   string
+	Port     string
+	SSLmode  string
 }
 
 var Config ConfigType

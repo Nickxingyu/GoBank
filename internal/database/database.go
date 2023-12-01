@@ -1,16 +1,20 @@
 package database
 
-import "gorm.io/gorm"
+import (
+	"github.com/Nickxingyu/GoBank/internal/config"
+	"gorm.io/gorm"
+)
 
 var DB *gorm.DB
 
 func init() {
+	db_config := config.Config.Database.Postgres
 	Postgres{
-		Host:     "localhost",
-		User:     "postgres",
-		Password: "admin",
-		DBname:   "GoBank",
-		Port:     "8080",
-		SSLmode:  "disable",
+		Host:     db_config.Host,
+		User:     db_config.User,
+		Password: db_config.Password,
+		DBname:   db_config.DBname,
+		Port:     db_config.Port,
+		SSLmode:  db_config.SSLmode,
 	}.Connect()
 }
