@@ -9,10 +9,6 @@ import (
 	"github.com/Nickxingyu/GoBank/internal/model"
 )
 
-type AccountRouter struct {
-	*gin.Engine
-}
-
 type Account struct {
 	ID       uint    `json:"id"`
 	UserID   uint    `json:"user_id"`
@@ -20,13 +16,14 @@ type Account struct {
 	Balance  float64 `json:"balance"`
 }
 
-func (r AccountRouter) load() {
-	rg := r.Group("/account")
-
-	rg.GET("/:id", getAccountById)
-	rg.POST("/", createAccount)
-	rg.PUT("/", updateAccount)
-	rg.DELETE("/:id", deleteAccountById)
+func init() {
+	rg := engine.Group("/account")
+	{
+		rg.GET("/:id", getAccountById)
+		rg.POST("/", createAccount)
+		rg.PUT("/", updateAccount)
+		rg.DELETE("/:id", deleteAccountById)
+	}
 }
 
 func getAccountById(ctx *gin.Context) {

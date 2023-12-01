@@ -6,17 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserRouter struct {
-	*gin.Engine
-}
-
-func (r UserRouter) load() {
-	rg := r.Group("/user")
-
-	rg.GET("/:id", getUserById)
-	rg.POST("/", createUser)
-	rg.PUT("/", updateUser)
-	rg.DELETE("/:id", deleteUserById)
+func init() {
+	rg := engine.Group("/user")
+	{
+		rg.GET("/:id", getUserById)
+		rg.POST("/", createUser)
+		rg.PUT("/", updateUser)
+		rg.DELETE("/:id", deleteUserById)
+	}
 }
 
 func getUserById(ctx *gin.Context) {

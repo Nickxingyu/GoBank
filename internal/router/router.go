@@ -6,13 +6,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Load(engine *gin.Engine) {
-	engine.GET("/", greet)
-	engine.POST("login", login)
-	engine.POST("signUp", signUp)
+var engine *gin.Engine = gin.Default()
 
-	UserRouter{engine}.load()
-	AccountRouter{engine}.load()
+func init() {
+	engine.GET("/", greet)
+	engine.POST("/login", login)
+	engine.POST("/signUp", signUp)
+}
+
+func Run(port string) {
+	engine.Run(port)
 }
 
 func greet(ctx *gin.Context) {

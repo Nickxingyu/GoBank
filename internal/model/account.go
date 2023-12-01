@@ -1,6 +1,8 @@
 package model
 
 import (
+	"fmt"
+
 	"github.com/Nickxingyu/GoBank/internal/database"
 	"gorm.io/gorm"
 )
@@ -11,6 +13,11 @@ type Account struct {
 	UserID   uint
 	CoinType string
 	Balance  float64
+}
+
+func init() {
+	fmt.Println("account model init")
+	database.DB.AutoMigrate(&Account{})
 }
 
 func FindAccountById(accountID uint) (*Account, error) {

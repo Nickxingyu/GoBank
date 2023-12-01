@@ -1,6 +1,9 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"github.com/Nickxingyu/GoBank/internal/database"
+	"gorm.io/gorm"
+)
 
 type User struct {
 	gorm.Model
@@ -8,4 +11,8 @@ type User struct {
 	FirstName string
 	LastName  string
 	Accounts  []Account
+}
+
+func init() {
+	database.DB.AutoMigrate(&User{})
 }
