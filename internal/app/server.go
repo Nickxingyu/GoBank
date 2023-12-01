@@ -1,15 +1,13 @@
 package app
 
 import (
+	"strconv"
+
+	"github.com/Nickxingyu/GoBank/internal/config"
 	"github.com/Nickxingyu/GoBank/internal/router"
 )
 
-var port string
-
-func init() {
-	port = ":3000"
-}
-
 func Run() {
-	router.Run(port)
+	port := strconv.Itoa(config.Config.Port)
+	router.Run(":" + port)
 }
