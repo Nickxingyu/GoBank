@@ -54,7 +54,6 @@ func createAccount(ctx *gin.Context) {
 	account := Account{}
 	err := ctx.BindJSON(&account)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, err)
 		ctx.Error(err)
 	}
 
@@ -64,21 +63,48 @@ func createAccount(ctx *gin.Context) {
 		Balance:  account.Balance,
 	})
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, err)
+		ctx.Error(err)
 	}
 
 	ctx.JSON(http.StatusOK, account)
 }
 
 func updateAccount(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Update An Account",
+	account := Account{}
+	err := ctx.BindJSON(&account)
+	if err != nil {
+		ctx.Error(err)
+	}
+
+	_, err = model.SaveAccountByID(account.ID, model.Account{
+		UserID:   account.UserID,
+		CoinType: account.CoinType,
+		Balance:  account.Balance,
 	})
+	if err != nil {
+		ctx.Error(err)
+	}
+
+	ctx.JSON(http.StatusOK, account)
 }
 
 func deleteAccountById(ctx *gin.Context) {
 	id := ctx.Param("id")
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Delete An Account By ID : " + id,
+
+	account_id, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		ctx.Error(err)
+	}
+
+	accountModel, err := model.DeleteAccountByID(uint(account_id))
+	if err != nil {
+		ctx.Error(err)
+	}
+
+	ctx.JSON(http.StatusOK, &Account{
+		ID:       accountModel.ID,
+		UserID:   accountModel.UserID,
+		CoinType: accountModel.CoinType,
+		Balance:  accountModel.Balance,
 	})
 }
