@@ -22,7 +22,7 @@ func init() {
 
 func FindAccountById(accountID uint) (*Account, error) {
 	account := Account{}
-	if err := database.DB.Find(&account, accountID).Error; err != nil {
+	if err := database.DB.First(&account, accountID).Error; err != nil {
 		return nil, err
 	}
 	return &account, nil
@@ -49,7 +49,7 @@ func DeleteAccountByID(accountID uint) (*Account, error) {
 	var account Account
 
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Find(&account, accountID).Error; err != nil {
+		if err := tx.First(&account, accountID).Error; err != nil {
 			return err
 		}
 		if err := tx.Delete(&account).Error; err != nil {
