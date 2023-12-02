@@ -8,27 +8,24 @@ import (
 )
 
 type ConfigType struct {
-	Env       string
-	BcryptKey string `mapstructure:"bcrypt_key"`
-	Server
-	Database
-}
-
-type Server struct {
-	Port int
-}
-
-type Database struct {
-	Postgres
-}
-
-type Postgres struct {
-	Host     string
-	User     string
-	Password string
-	DBname   string
-	Port     string
-	SSLmode  string
+	Env    string
+	Server struct {
+		Port int
+	}
+	Database struct {
+		Postgres struct {
+			Host     string
+			User     string
+			Password string
+			DBname   string
+			Port     string
+			SSLmode  string
+		}
+	}
+	Bcrypt struct {
+		Key  string
+		Cost int
+	}
 }
 
 var Config ConfigType

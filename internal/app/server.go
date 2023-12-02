@@ -8,6 +8,6 @@ import (
 )
 
 func Run() {
-	port := strconv.Itoa(config.Config.Port)
+	port := strconv.Itoa(config.Config.Server.Port)
 	router.Run(":" + port)
 }
