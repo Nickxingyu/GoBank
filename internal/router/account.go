@@ -32,11 +32,13 @@ func getAccountById(ctx *gin.Context) {
 	account_id, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	accountModel, err := model.FindAccountById(uint(account_id))
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	ctx.JSON(http.StatusOK, &Account{
@@ -52,6 +54,7 @@ func createAccount(ctx *gin.Context) {
 	err := ctx.BindJSON(&account)
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	_, err = model.InsertAccount(model.Account{
@@ -61,6 +64,7 @@ func createAccount(ctx *gin.Context) {
 	})
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	ctx.JSON(http.StatusOK, account)
@@ -71,6 +75,7 @@ func updateAccount(ctx *gin.Context) {
 	err := ctx.BindJSON(&account)
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	_, err = model.SaveAccountByID(account.ID, model.Account{
@@ -80,6 +85,7 @@ func updateAccount(ctx *gin.Context) {
 	})
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	ctx.JSON(http.StatusOK, account)
@@ -91,11 +97,13 @@ func deleteAccountById(ctx *gin.Context) {
 	account_id, err := strconv.ParseUint(id, 10, 64)
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	accountModel, err := model.DeleteAccountByID(uint(account_id))
 	if err != nil {
 		ctx.Error(err)
+		return
 	}
 
 	ctx.JSON(http.StatusOK, &Account{
