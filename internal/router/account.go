@@ -35,7 +35,7 @@ func getAccountById(ctx *gin.Context) {
 		return
 	}
 
-	accountModel, err := model.FindAccountById(uint(account_id))
+	accountModel, err := model.FindAccountByID(uint(account_id))
 	if err != nil {
 		ctx.Error(err)
 		return

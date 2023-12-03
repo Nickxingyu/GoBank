@@ -20,7 +20,7 @@ func init() {
 	database.DB.AutoMigrate(&Account{})
 }
 
-func FindAccountById(accountID uint) (*Account, error) {
+func FindAccountByID(accountID uint) (*Account, error) {
 	account := Account{}
 	if err := database.DB.First(&account, accountID).Error; err != nil {
 		return nil, err

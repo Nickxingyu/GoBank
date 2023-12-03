@@ -46,8 +46,7 @@ func signUp(ctx *gin.Context) {
 		return
 	}
 
-	var userModel *model.User
-	userModel, err = model.InsertUser(model.User{
+	userModel, err := model.InsertUser(model.User{
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
 		Email:     user.Email,
@@ -57,7 +56,11 @@ func signUp(ctx *gin.Context) {
 		ctx.Error(err)
 		return
 	}
-	user.ID = userModel.ID
 
-	ctx.JSON(http.StatusOK, user)
+	ctx.JSON(http.StatusOK, UserOutput{
+		ID:        userModel.ID,
+		FirstName: user.FirstName,
+		LastName:  userModel.LastName,
+		Email:     userModel.Email,
+	})
 }
