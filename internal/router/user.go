@@ -15,14 +15,7 @@ type User struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
-	Password  string `json:"password"`
-}
-
-type UserOutput struct {
-	ID        uint   `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+	Password  string `json:"password,omitempty"`
 }
 
 func init() {
@@ -48,7 +41,7 @@ func getUserById(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, UserOutput{
+	ctx.JSON(http.StatusOK, User{
 		ID:        userModel.ID,
 		FirstName: userModel.FirstName,
 		LastName:  userModel.LastName,
@@ -80,7 +73,7 @@ func updateUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, UserOutput{
+	ctx.JSON(http.StatusOK, User{
 		ID:        userModel.ID,
 		FirstName: userModel.FirstName,
 		LastName:  userModel.LastName,
@@ -103,7 +96,7 @@ func deleteUserById(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, UserOutput{
+	ctx.JSON(http.StatusOK, User{
 		ID:        userModel.ID,
 		FirstName: userModel.FirstName,
 		LastName:  userModel.LastName,

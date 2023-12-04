@@ -57,7 +57,7 @@ func signUp(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, UserOutput{
+	ctx.JSON(http.StatusOK, User{
 		ID:        userModel.ID,
 		FirstName: user.FirstName,
 		LastName:  userModel.LastName,
