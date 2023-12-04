@@ -24,5 +24,11 @@ func (p Postgres) Connect() {
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
+	sqlDB, err := db.DB()
+	if err != nil {
+		panic("DB Connection fail.")
+	}
+	sqlDB.SetMaxIdleConns(10)
+	sqlDB.SetMaxOpenConns(100)
 	DB = db
 }
