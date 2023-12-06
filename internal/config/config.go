@@ -26,6 +26,9 @@ type ConfigType struct {
 		Key  string
 		Cost int
 	}
+	JWT struct {
+		Key string
+	}
 }
 
 var Config ConfigType

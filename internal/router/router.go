@@ -1,10 +1,12 @@
 package router
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/Nickxingyu/GoBank/internal/config"
 	"github.com/Nickxingyu/GoBank/internal/model"
+	"github.com/Nickxingyu/GoBank/internal/service/jwt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -28,8 +30,34 @@ func greet(ctx *gin.Context) {
 }
 
 func login(ctx *gin.Context) {
+	user := User{}
+	if err := ctx.BindJSON(&user); err != nil {
+		ctx.Error(err)
+		return
+	}
+
+	userModel, err := model.FindUserByEmail(user.Email)
+	if err != nil {
+		ctx.Error(err)
+		return
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(userModel.Hash), []byte(user.Password)); err != nil {
+		log.Println("Invalid Password")
+		ctx.Error(err)
+		return
+	}
+
+	tokenString, err := jwt.GenerateTokenString(userModel.ID)
+	if err != nil {
+		log.Println("JWT Process Fail")
+		ctx.Error(err)
+		return
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "Login",
+		"message": "login successful",
+		"token":   tokenString,
 	})
 }
 

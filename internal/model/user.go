@@ -27,6 +27,17 @@ func (e EmailHasBeenUsedError) Error() string {
 	return "This email " + e.Email + " already be used."
 }
 
+func FindUserByEmail(userEmail string) (*User, error) {
+	user := User{
+		Email: userEmail,
+	}
+	if err := database.DB.First(&user).Error; err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
 func FindUserByID(userID uint) (*User, error) {
 	user := User{}
 	if err := database.DB.First(&user, userID).Error; err != nil {
